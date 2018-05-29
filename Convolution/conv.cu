@@ -189,24 +189,6 @@ int main(int argc, const char* argv[]) {
                                      output_descriptor,
                                      d_output));
 
-  if (with_sigmoid) {
-    cudnnActivationDescriptor_t activation_descriptor;
-    checkCUDNN(cudnnCreateActivationDescriptor(&activation_descriptor));
-    checkCUDNN(cudnnSetActivationDescriptor(activation_descriptor,
-                                            CUDNN_ACTIVATION_SIGMOID,
-                                            CUDNN_PROPAGATE_NAN,
-                                            /*relu_coef=*/0));
-    checkCUDNN(cudnnActivationForward(cudnn,
-                                      activation_descriptor,
-                                      &alpha,
-                                      output_descriptor,
-                                      d_output,
-                                      &beta,
-                                      output_descriptor,
-                                      d_output));
-    cudnnDestroyActivationDescriptor(activation_descriptor);
-  }
-
   float* h_output = new float[image_bytes];
   cudaMemcpy(h_output, d_output, image_bytes, cudaMemcpyDeviceToHost);
 
