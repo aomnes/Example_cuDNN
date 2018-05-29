@@ -44,15 +44,12 @@ int main(int argc, const char* argv[]) {
     std::cout << "CUDNN_VERSION: " << CUDNN_VERSION << std::endl;
 
   if (argc < 2) {
-    std::cerr << "usage: conv <image> [gpu=0] [sigmoid=0]" << std::endl;
+    std::cerr << "usage: conv <image> [gpu=0]" << std::endl;
     std::exit(EXIT_FAILURE);
   }
 
   int gpu_id = (argc > 2) ? std::atoi(argv[2]) : 0;
   std::cerr << "GPU: " << gpu_id << std::endl;
-
-  bool with_sigmoid = (argc > 3) ? std::atoi(argv[3]) : 0;
-  std::cerr << "With sigmoid: " << std::boolalpha << with_sigmoid << std::endl;
 
   cv::Mat image = load_image(argv[1]);
 
